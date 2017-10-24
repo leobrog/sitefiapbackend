@@ -106,18 +106,15 @@ apiRoutes.get('/usuarios', function(req, res){
 });
 
 //Rota para fazer post do conteudo editado
-apiRoutes.put("/content", function(req, res){
-    Content.findById(req.params.content_id, function(error, content){
-        if(error) res.send(error);
+apiRoutes.put("/content/:id", function(req, res){
+    Content.findById(req.params.id, function(error, content){
+        if(error) res.send(error)
         
-        content.leadspace = req.body.leadspace;
-        content.robotSection = req.body.robotSection;
-        content.constructionSection = req.body.constructionSection;
-        content.competitionSection = req.body.competitionSection;
-        content.teamSection = req.body.teamSection;
+        content = new Content (req.body)
+        console.log(content)
         
         content.save(function(error) {
-            if(error) res.send(error);
+            if(error) res.send(error)
             
             res.json({message: 'Conteudo atualizado'});
         });
@@ -156,7 +153,7 @@ app.get('/createcontent', function(req, res){
             subtitle: 'doido memo',
             button: 'clica aqui '
         },
-        robotSection: {
+        section1: {
             section_title: 'Robo',
             textArea_1: {
                 heading: 'qualquecoisa',
@@ -172,7 +169,7 @@ app.get('/createcontent', function(req, res){
             description_1: 'loquissimo',
             description_2: 'olha soh'
         },
-        constructionSection: {
+        section2: {
             section_title: 'Construction',
             textArea_1: {
                 heading: 'qualquecoisa',
@@ -187,7 +184,7 @@ app.get('/createcontent', function(req, res){
             imgUrl_7: 'url',
             imgUrl_8: 'url'
         },
-        competitionSection: {
+        section3: {
             section_title: 'Competition',
             textArea_1: {
                 heading: 'qualquecoisa',
@@ -195,7 +192,7 @@ app.get('/createcontent', function(req, res){
             },
             imgUrl_1: 'url'
         },
-        teamSection: {
+        section4: {
             section_title: 'Team',
             member_1:{
                 name: 'membro',
@@ -242,8 +239,8 @@ app.put("/content/:id", function(req, res){
     Content.findById(req.params.id, function(error, content){
         if(error) res.send(error);
         
-        content = req.body.content;
-
+        content = new Content (req.body);
+        console.log(content)
         
         content.save(function(error) {
             if(error) res.send(error);
